@@ -1,82 +1,46 @@
 {% extends 'admin_navigation.html' %}
 {% load static %}
 {% block body %}
-<style>
-.signup-main {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-  }
-  
-  .signup-head {
-	margin-top: 50px;
-	font-size: 36px;
-	font-weight: bold;
-	text-align: center;
-  }
-  
-  .signup-block {
-	margin-top: 30px;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	border: 1px solid #ccc;
-	border-radius: 10px;
-	padding: 30px;
-	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  form {
-	width: 100%;
-  }
-  
-  input[type="text"] {
-	width: 100%;
-	padding: 10px;
-	margin-top: 20px;
-	font-size: 16px;
-	border: none;
-	border-radius: 5px;
-	background-color: #f8f8f8;
-	box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.1);
-  }
-  
-  input[type="submit"] {
-	width: 100%;
-	padding: 10px;
-	margin-top: 30px;
-	font-size: 18px;
-	font-weight: bold;
-	border: none;
-	border-radius: 5px;
-	background-color: #008CBA;
-	color: #fff;
-	cursor: pointer;
-	transition: background-color 0.3s;
-  }
-  
-  input[type="submit"]:hover {
-	background-color: #4aeeb4;
-  }
-</style>  
 
-     <div class="signup-main" >
-    	 <div class="signup-head">
-				<h1>Add City</h1>
-			</div>
-			<div class="signup-block">
-				<form action="" method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-					<input type="text" name="cat" placeholder="City Name" required="">
-                    <input type="submit" value="Add City" style="margin-top:10%">
-				</form>
-			</div>
+<div class="container">
+    <div class="card mt-5">
+        <div class="card-header">
+            <h2>Add City</h2>
+        </div>
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="city_name">City Name:</label>
+					<input type="text" name="cat" id="cityNameInput" placeholder="City Name" required="">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Add City</button>
+                </div>
+            </form>
+        </div>
     </div>
+</div>
 
-{% if error %}
-<script>
-    alert('Add 1 new City Successfully');
-    window.location = "{% url 'view_city' %}";
-</script>
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
 {% endif %}
-    {% endblock %}
+
+
+<script>
+        const cityNameInput = document.getElementById('cityNameInput');
+        cityNameInput.addEventListener('input', function(event) {
+            const cityName = event.target.value;
+            const regex = /^[A-Z][a-z]+$/;
+            if (!regex.test(cityName)) {
+                cityNameInput.setCustomValidity('City name should start with a capital letter');
+            } else {
+                cityNameInput.setCustomValidity('');
+            }
+        });
+</script>
+
+
+{% endblock %}

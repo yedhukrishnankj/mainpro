@@ -1,14 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from textblob import TextBlob
 
 # Create your models here.
 class City(models.Model):
-    city = models.CharField(max_length=30, null=True)
+    city = models.CharField(max_length=30, null=True,unique=True)
 
     def __str__(self):
         return self.city
-
 
 class Status(models.Model):
     status = models.CharField(max_length=30, null=True)
@@ -47,6 +46,9 @@ class Service_Man(models.Model):
     experience = models.CharField(max_length=100, null=True)
     id_card = models.FileField(null=True)
     image = models.FileField(null=True)
+    latitude = models.FloatField(null=True)
+    longitude = models.FloatField(null=True)
+
 
     def __str__(self):
         return self.user.first_name
@@ -75,9 +77,18 @@ class Contact(models.Model):
     name = models.CharField(max_length=100, null=True)
     message1 = models.CharField(max_length=200, null=True)
     email = models.EmailField(null=True)
+    sentiment_score = models.FloatField(null=True)
 
     def __str__(self):
         return self.name
+    
+    def save(self, *args, **kwargs):
+        if self.message1:
+            blob = TextBlob(self.message1)
+            self.sentiment_score = blob.sentiment.polarity
+        else:
+            self.sentiment_score = None
+        super(Contact, self).save(*args, **kwargs)
 
 
 class Total_Man(models.Model):

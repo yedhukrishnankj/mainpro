@@ -31,9 +31,9 @@
 <div class="container-fluid" style="">
     {% if not terror %}
     <div class="row">
-        <div class="col-md-12">
+        <!-- <div class="col-md-12">
             <img src="{% static 'images/search1.gif' %}" style="width:100%;height:300px">
-        </div>
+        </div> -->
         <div class="col-md-12">
             <form method="post" action="" enctype="multipart/form-data">
                {% csrf_token %}
@@ -69,7 +69,8 @@
                <div align="center" class="container">
                             <div class="container-fluid">
                                <h4 style="font-weight:bold;font-family : 'Monotype Corsiva' ;margin-top:0%" align="center">
-                                   <span style="color:red">{{count1}}</span> <span style="color:red"><span style="color:black">"{{c1}}"</span></span> found in
+                                   <span style="color:red"></span> <span style="color:red"><span style="color:black">"{{c1}}"</span></span> found in
+                                   <!-- <span style="color:red">{{count1}}</span> <span style="color:red"><span style="color:black">"{{c1}}"</span></span> found in -->
                                    <span style="color:red"><span style="color:black">"{{c}}"</span></span> city
                                </h4>
                             </div>
@@ -83,17 +84,17 @@
                                     <ul style="color:grey">
                                         <li>Mobile No. :- {{i.contact}}</li>
                                         <li>Address :- {{i.address}}</li>
-                                        <li>Work :- {{i.experience}} year</li>
-                                        <li>Experience :- {{i.contact}}</li>
+                                        <li>Work Experience :- {{i.experience}} year</li>
+                                        <!-- <li>Experience :- {{i.contact}}</li> -->
                                         <li>City :- {{i.city}}</li>
                                         <a href="{% url 'booking' i.id %}" ><button class="btn btn-success" style="margin-top:8%;width:60%">Book Now</button></a>
                                     </ul>
                                 </div>
 
-                                <div class="col-md-4">
+                                <!-- <div class="col-md-4">
                                      <img src="{{i.id_card.url}}" style="width:75%">
                                     <h4>{{i.id_type}}</h4>
-                                </div>
+                                </div> -->
                             </div>
                    {% endfor %}
                </div>

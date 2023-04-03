@@ -45,7 +45,7 @@
 					<div class="address mt-3">
 						<h5 class="pb-3 text-capitalize"></h5>
 						<address>
-							<img src="{% static 'images/sign3.jpg' %}" style="width:100%" alt/>
+							<img src="{% static 'images/sign3.jpg' %}" style="width:50%" alt/>
 						</address>
 					</div>
 				</div>
@@ -57,46 +57,55 @@
 							<div class="row">
                                 <div class="col-md-6">
 								<label for="contactusername">Username</label>
-                                    <input class="form-control" type="text" name="uname" placeholder="Username" required="">
+                                    <input class="form-control" type="text" name="uname" id="name" placeholder="Username" required="" onblur="return validateform()" onKeyUp="return validateform()">
+									<span id="nm" style="color: red;"></span>
 							</div>
                                 <div class="col-md-6">
 								<label for="contactemail">Password</label>
-                                  <input class="form-control" type="password" name="pwd" placeholder="Password" required="">
+                                  <input class="form-control" type="password" name="pwd" id="password" placeholder="Password" required="" onblur="return validateform()" onKeyUp="return validateform()">								 
+								   <span id="pss" style="color: red;"></span>
 							</div>
                             </div>
 
                             <div class="row">
                                 <div class="col-md-6">
 								<label for="contactusername">First name</label>
-                                        <input class="form-control" type="text" name="fname" placeholder="First Name" required="">
+                                        <input class="form-control" type="text" name="fname" id="fname" placeholder="First Name" required="" onblur="return validateform()" onKeyUp="return validateform()">
+										<span id="fn" style="color: red;"></span>
+
 							</div>
 							<div class="col-md-6">
 								<label for="contactemail">Last Name</label>
-                                        <input class="form-control" type="text" name="lname" placeholder="Last Name" required="">
+                                        <input class="form-control" type="text" name="lname" id="lname" placeholder="Last Name" required="" onblur="return validateform()" onKeyUp="return validateform()">
+										<span id="ln" style="color: red;"></span>
                             </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
 								<label for="contactusername">Email</label>
-                                        <input class="form-control" type="email" name="email" placeholder="Email address" required="">
+                                        <input class="form-control" type="email" name="email" id="email" placeholder="Email address" required="" onblur="return validateform()" onKeyUp="return validateform()">										
+										<span id="eml" style="color: red;"></span>
 							</div>
 								<div class="col-md-6">
 								<label for="contactusername">Image</label>
-                                        <input class="form-control" type="file" name="image" required="">
+                                        <input class="form-control" type="file" name="image" id="image" required="" onblur="return validateform()" onKeyUp="return validateform()">
+										<span id="imgError" style="color: red;"></span>
 							</div>
                             </div>
 
                             <div class="row">
                                 <div class="col-md-12">
 								<label for="contactusername">Contact</label>
-                                        <input class="form-control" type="text" name="contact" placeholder="Phone Number" required="">
+                                        <input class="form-control" type="text" name="contact" placeholder="Phone Number" required="" id="number" onblur="return validateform()" onKeyUp="return validateform()">
+										<span id="no" style="color: red;"></span>
 							</div>
                             </div>
 
 							<div class="row">
                                 <div class="col-md-12">
 								<label for="contactemail">Address</label>
-                                <input class="form-control" type="text" name="address" placeholder="Address" required="">
+                                <input class="form-control" type="text" name="address" placeholder="Address" required="" id="state"  onblur="return validateform()" onKeyUp="return validateform()">
+								<span id="ste" style="color: red;"></span>
 							</div>
                             </div>
 
@@ -120,5 +129,150 @@
 	</section>
 	</section>
 	<!-- //contact -->
+
+	<script>
+		function validateform()
+     {
+         var a=document.getElementById('name').value.trim();	
+		 var e=document.getElementById('password').value.trim();
+		 var b=document.getElementById('fname').value.trim();
+		 var d=document.getElementById('lname').value.trim();
+		 var c=document.getElementById('email').value.trim();
+		 const imageField = document.getElementById('image');
+  		 const imageError = document.getElementById('imgError');
+		 var f=document.getElementById('number').value.trim();
+		 var g=document.getElementById('state').value.trim();
+
+		 var expr = /^[6-9]\d{9}$/;
+         var passpatern=/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
+
+		 if(a=="")
+                {
+                    document.getElementById('nm').style.display="block";
+                    document.getElementById('nm').innerHTML="**Please Enter User Name";
+                    return false;
+                }
+                if (/[^a-zA-Z]/.test(a))
+                    {
+                        document.getElementById('nm').style.display="block";
+                        document.getElementById('nm').innerHTML="**Only Alphabets Allowed";
+                        return false;
+                    }
+                    else{
+                        document.getElementById('nm').style.display="none";
+                        
+                    }
+
+				
+		if(e=="")
+                {
+                    document.getElementById('pss').innerHTML="**please enter Password";
+                    return false;
+                }
+                if (!e.match(passpatern))
+                    {
+                        
+                        document.getElementById('pss').innerHTML="contain upper and lowercase letters, numbers, and symbols";
+                        return false;
+                    }
+                    else{
+                    document.getElementById('pss').style.display = "none";
+                   
+                    }
+					if(b=="")
+                {
+                    document.getElementById('fn').style.display="block";
+                    document.getElementById('fn').innerHTML="**Please Enter First Name";
+                    return false;
+                }
+                if (/[^a-zA-Z]/.test(b))
+                    {
+                        document.getElementById('fn').style.display="block";
+                        document.getElementById('fn').innerHTML="**Only Alphabets Allowed";
+                        return false;
+                    }
+                    else{
+                        document.getElementById('fn').style.display="none";
+                        
+                    }
+					if(d=="")
+                {
+                    document.getElementById('ln').style.display="block";
+                    document.getElementById('ln').innerHTML="**Please Enter Last Name";
+                    return false;
+                }
+                if (/[^a-zA-Z]/.test(d))
+                    {
+                        document.getElementById('ln').style.display="block";
+                        document.getElementById('ln').innerHTML="**Only Alphabets Allowed";
+                        return false;
+                    }
+                    else{
+                        document.getElementById('ln').style.display="none";
+                        
+                    }
+				if(c=="")
+                { 
+                    document.getElementById('eml').style.display="block";
+                    document.getElementById('eml').innerHTML="**Please Enter Email";
+                    return false;
+                }  
+                if(c.indexOf('@')<=0){
+                    document.getElementById('eml').style.display="block";
+                    document.getElementById('eml').innerHTML="**Invalid  Email Address";
+                    return false;
+                }     
+                if ((c.charAt(c.length-4)!='.') && (c.charAt(c.length-3)!='.')) {
+                    document.getElementById('eml').style.display="block";
+                    document.getElementById('eml').innerHTML="**Invalid  Email Address";
+                    return false;
+                }   
+                else{
+                    document.getElementById('eml').style.display="none";
+                }
+
+				if (!imageField.files || !imageField.files[0]) {
+    			imageError.textContent = 'Please select an image file.';
+    			return false;
+  				}
+
+  				const fileType = imageField.files[0].type;
+  				const validImageTypes = ['image/jpeg', 'image/png', 'image/gif'];
+
+  				// Check if the selected file is a valid image type
+  				if (!validImageTypes.includes(fileType)) {
+   				 imageError.textContent = 'Please select a valid image file (JPEG, PNG, or GIF).';
+    			return false;
+ 				 }
+				  imageError.textContent = '';
+  				if(f=="")
+                {
+                    document.getElementById('no').style.display = "block";
+
+                    document.getElementById('no').innerHTML="**Please Enter  phone number";
+                    return false;
+                }
+                if(f!="" && expr.test(f)==false){
+                    document.getElementById('no').style.display= "block";
+                    document.getElementById('no').innerHTML ="Invalid Phone number";
+                    return false;
+               }
+                else{
+                    document.getElementById('no').style.display = "none";
+                    }
+					if(g=="")
+                {
+                    document.getElementById('ste').style.display="block";
+                    document.getElementById('ste').innerHTML="**Please Enter Address";
+                    return false;
+                }
+                else{
+                    document.getElementById('ste').style.display="none";
+                    
+                }	
+  				
+	}
+
+	</script>
 
 {% endblock %}

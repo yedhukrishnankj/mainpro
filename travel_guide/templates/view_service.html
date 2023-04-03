@@ -12,8 +12,8 @@
                                 <table class="table table-hover">
                                   <thead>
                                     <tr>
-                                      <th>#</th>
-                                      <th>Id</th>
+                                      <th>Number</th>
+                                      <!-- <th>Id</th> -->
                                       <th>Service Name</th>
                                       <th>Image</th>
                                       <th>Description</th>
@@ -25,7 +25,7 @@
                               {% for i in ser %}
                                 <tr>
                                   <td>{{forloop.counter}}</td>
-                                  <td>{{i.id}}</td>
+                                  <!-- <td>{{i.id}}</td> -->
                                   <td>{{i.category}}</td>
                                   <td><img src="{{i.image.url}}" style="width:90px;height:80px" /></td>
                                   <td>{{i.desc}}</td>

@@ -37,6 +37,7 @@ urlpatterns = [
     path('search_report',Search_Report,name="search_report"),
     path('new_message',new_message,name="new_message"),
     path('read_message',read_message,name="read_message"),
+    path('sentiment_analysis',sentiment_analysis, name='sentiment_analysis'),
     path('search_cities',search_cities,name="search_cities"),
     path('search_services',search_services,name="search_services"),
     path('confirm_message(<int:pid>)',confirm_message,name="confirm_message"),

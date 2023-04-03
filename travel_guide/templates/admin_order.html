@@ -13,8 +13,8 @@
                                 <table class="table table-hover">
                                   <thead>
                                     <tr>
-                                      <th>#</th>
-                                      <th>Service Man</th>
+                                      <th>Number</th>
+                                      <th>Travel Assist</th>
                                       <th>Customer</th>
                                       <th>Service_name</th>
                                       <th>Date</th>
@@ -22,7 +22,7 @@
                                       <th>Hours</th>
                                       <th>View Detail</th>
                                       <th>Status</th>
-                                      <th>Action</th>
+                                      <!-- <th>Action</th> -->
                                   </tr>
                               </thead>
                               <tbody>
@@ -38,12 +38,12 @@
                                   <td><a href="{% url 'order_detail' i.id %}" ><i  style="color:green;font-size:28px" class="fa fa-eye"></i></a></td>
                                   <td><span class="label label-danger">{{i.status.status}}</span>
                                   {% ifequal i.status.status 'Accept' %}
-                                  <span style="margin-left:5%">----------</span>
+                                  <span style="margin-left:5%">-</span>
                                   {% else %}
                                   <a href="{% url 'order_status' i.id %}" ><button class="btn btn-primary">Assign_Status</button></a>
                                   {% endifequal %}
                                   </td>
-                                  <td><a href="{% url 'delete_admin_order' i.id %}" ><button class="btn btn-danger" onclick="return confirm('Are you sure ?')"><i class="fa fa-trash-o"></i></button></a></td>
+                                  <!-- <td><a href="{% url 'delete_admin_order' i.id %}" ><button class="btn btn-danger" onclick="return confirm('Are you sure ?')"><i class="fa fa-trash-o"></i></button></a></td> -->
                               </tr>
                               {% endfor %}
                           </tbody>

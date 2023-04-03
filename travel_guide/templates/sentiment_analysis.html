@@ -1,0 +1,37 @@
+{% extends 'admin_navigation.html' %}
+{% load static %}
+
+{% block body %}
+  <div class="container">
+    <h1> Analysis Report</h1>
+    <!-- <p>The overall sentiment score is {{ avg_sentiment_score }}</p> -->
+    <canvas id="sentiment-chart"></canvas>
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    var ctx = document.getElementById('sentiment-chart').getContext('2d');
+    var chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Positive', 'Negative', 'Neutral'],
+            datasets: [{
+                label: 'Feedback Count',
+                data: [{{ positive_count }}, {{ negative_count }}, {{ neutral_count }}],
+                backgroundColor: ['green', 'red', 'gray'],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        stepSize: 1
+                    }
+                }]
+            }
+        }
+    });
+</script>
+{% endblock %}

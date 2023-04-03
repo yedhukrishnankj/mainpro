@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from .models import *
 from django.contrib.auth import authenticate,login,logout
 import datetime
+from django.db import IntegrityError
+from django.contrib import messages
 
 # Create your views here.
 def notification():
@@ -38,16 +40,21 @@ def Home(request):
     return render(request,'home.html',d)
 
 def contact(request):
-    error=False
-    if request.method=="POST":
+    error = False
+    if request.method == "POST":
         n = request.POST['name']
         e = request.POST['email']
         m = request.POST['message']
         status = Status.objects.get(status="unread")
-        Contact.objects.create(status=status,name=n,email=e,message1=m)
-        error=True
-    d = {'error':error}
-    return render(request,'contact.html',d)
+        # Analyze the sentiment of the message
+        blob = TextBlob(m)
+        sentiment_score = blob.sentiment.polarity
+        # Create a new Contact object with the sentiment score
+        Contact.objects.create(status=status, name=n, email=e, message1=m, sentiment_score=sentiment_score)
+        error = True
+    d = {'error': error}
+    return render(request, 'contact.html', d)
+
 
 def Admin_Home(request):
     dic = notification()
@@ -227,9 +234,9 @@ def Customer_Booking(request,pid):
         add = request.POST['add']
         dat = request.POST['date']
         da = request.POST['day']
-        ho = request.POST['hour']
+        # ho = request.POST['hour']
         st = Status.objects.get(status="pending")
-        Order.objects.create(status=st,service=ser1,customer=sign,book_date=dat,book_days=da,book_hours=ho)
+        Order.objects.create(status=st,service=ser1,customer=sign,book_date=dat,book_days=da)
         terror=True
     d = {'error':error,'ser':sign,'terror':terror}
     return render(request,'booking.html',d)
@@ -516,13 +523,23 @@ def Add_Service(request):
 
 def Add_City(request):
     dic = notification()
-    error=False
+
     if request.method == "POST":
-        n = request.POST['cat']
-        City.objects.create(city=n)
-        error=True
-    d = {'error':error,'new': dic['new'], 'count': dic['count']}
-    return render(request,'add_city.html',d)
+        city_name = request.POST['cat']
+        try:
+            City.objects.create(city=city_name)
+            messages.success(request, f'The city "{city_name}" was added successfully.')
+        except IntegrityError:
+            messages.error(request, f'The city "{city_name}" already exists.')
+
+        return redirect('add_city')
+
+    context = {
+        'new': dic['new'],
+        'count': dic['count'],
+    }
+
+    return render(request, 'add_city.html', context)
 
 def Edit_Service(request,pid):
     dic = notification()
@@ -737,3 +754,18 @@ def Search_Report(request):
             error="notfound"
     d = {'new': dic['new'], 'count': dic['count'],'order':reg,'error':error,'terror':terror,'reg1': reg1, 'total': total}
     return render(request,'search_report.html',d)
+
+def sentiment_analysis(request):
+    contacts = Contact.objects.all()
+
+    # Count the number of positive feedback
+    positive_count = contacts.filter(sentiment_score__gt=0.5).count()
+
+    # Count the number of negative feedback
+    negative_count = contacts.filter(sentiment_score__lt=-0.5).count()
+
+    # Count the number of neutral feedback
+    neutral_count = contacts.filter(sentiment_score__lte=0.5, sentiment_score__gte=-0.5).count()
+
+    context = {'positive_count': positive_count, 'negative_count': negative_count, 'neutral_count': neutral_count}
+    return render(request, 'sentiment_analysis.html', context)

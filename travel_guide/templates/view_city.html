@@ -12,18 +12,16 @@
                                 <table class="table table-hover">
                                   <thead>
                                     <tr>
-                                      <th>#</th>
-                                      <th>Id</th>
+                                      <th>Number</th>
                                       <th>City Name</th>
                                       <th>Action</th>
-
                                   </tr>
                               </thead>
                               <tbody>
                               {% for i in ser %}
                                 <tr>
                                   <td>{{forloop.counter}}</td>
-                                  <td>{{i.id}}</td>
+                                  <!-- <td>{{i.id}}</td> -->
                                   <td>{{i.city}}</td>
                                   <td style="width:100px">
                                   <a href="{% url 'delete_city' i.id %}" ><button class="btn btn-danger" onclick="return confirm('Are you sure?')"><i class="fa fa-trash-o"></i></button></a></td>

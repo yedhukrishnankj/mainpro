@@ -130,7 +130,7 @@ a:hover {
   top: 0px;
   left:0px;
   bottom: 0;
-  background-color:#202121;
+  background-color:#064f98;
   color: #aaabae;
   z-index: 999;
 }
@@ -162,7 +162,7 @@ a:hover {
     font-family: 'Carrois Gothic', sans-serif;
 }
 #menu li a:hover {
-  color:#fdbb30;
+  color:#30e2fd;
   transition: color 250ms ease-in-out, background-color 250ms ease-in-out;
 }
 #menu li.active > a {
@@ -234,7 +234,7 @@ a:hover {
     -o-border-radius:3px;
     color: #FFF;
     background-clip: padding-box;
-    background:#68AE00;
+    background:#0e0e0e;
 }
 .sidebar-icon:hover{
 	 color: #FFF;
@@ -264,7 +264,7 @@ a:hover {
 }
 .logo-name h1 {
     font-size: 2.5em;
-    color: #FC8213;
+    color: #104c90;
     margin: 0em;
     font-weight: 700;
     text-decoration: none;
@@ -778,7 +778,7 @@ ul.dropdown-menu {
     position: absolute;
     top: 34%;
     right: 8%;
-    color: #68AE00;
+    color: #007aae;
     font-size: 1.6em;
 }
 .profile_details ul li ul.dropdown-menu.drp-mnu {
@@ -793,7 +793,7 @@ ul.dropdown-menu.drp-mnu li {
 }
 .user-name p{
 	font-size:1em;
-	color:#FC8213;
+	color:#115bc9;
 	line-height:1em;
 	font-weight:700;
 }
@@ -834,7 +834,7 @@ ul.dropdown-menu.drp-mnu li {
     line-height: 1.8em;
 }
 .market-update-block.clr-block-1 {
-    background: #68ae00;
+    background: #085a89;
     margin-right: 0.8em;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
     transition: 0.5s all;
@@ -843,7 +843,7 @@ ul.dropdown-menu.drp-mnu li {
   -o-transition: 0.5s all;
 }
 .market-update-block.clr-block-2 {
-    background:#FC8213;
+    background:#085a89;
     margin-right: 0.8em;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
     transition: 0.5s all;
@@ -852,7 +852,7 @@ ul.dropdown-menu.drp-mnu li {
   -o-transition: 0.5s all;
 }
 .market-update-block.clr-block-3 {
-    background:#337AB7;
+    background:#085a89;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
     transition: 0.5s all;
   -webkit-transition: 0.5s all;
@@ -860,21 +860,21 @@ ul.dropdown-menu.drp-mnu li {
   -o-transition: 0.5s all;
 }
 .market-update-block.clr-block-1:hover {
-    background: #3C3C3C;
+    background: #7bc5ea;
    transition: 0.5s all;
   -webkit-transition: 0.5s all;
   -moz-transition: 0.5s all;
   -o-transition: 0.5s all;
 }
 .market-update-block.clr-block-2:hover {
-    background: #3C3C3C;
+    background: #7bc5ea;
    transition: 0.5s all;
   -webkit-transition: 0.5s all;
   -moz-transition: 0.5s all;
   -o-transition: 0.5s all;
 }
 .market-update-block.clr-block-3:hover {
-    background:#3C3C3C;
+    background:#7bc5ea;
     transition: 0.5s all;
   -webkit-transition: 0.5s all;
   -moz-transition: 0.5s all;
@@ -1933,13 +1933,13 @@ p.grid1 {
     box-shadow: 0px 0px 2px 1px rgba(0,0,0,0.15);
 }
 .signup-head {
-    background: url(../images/login.jpg)no-repeat;
+    background: url(../images/loginn.png)no-repeat;
     background-size: cover;
     min-height: 150px;
 }
 .signup-head h1 {
     font-size:3em;
-    color:#FFF;
+    color:#0c4dae;
     padding: 1em 0em 0em 0em;
     text-align: center;
     font-family: 'Carrois Gothic', sans-serif;

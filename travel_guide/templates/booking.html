@@ -41,7 +41,7 @@
 					<div class="address mt-3">
 						<h5 class="pb-3 text-capitalize"></h5>
 						<address>
-							<img src="{% static 'images/book_now.gif' %}" style="width:100%" alt/>
+							<img src="{% static 'images/book_now.gif' %}" style="width:90%" alt/>
 						</address>
 					</div>
 				</div>
@@ -68,8 +68,8 @@
 							</div>
 							<div class="col-md-12">
 								<label for="contactemail">Date</label>
-                                        <input class="form-control" type="date" name="date" required="">
-                            </div>
+								<input class="form-control" type="date" name="date" id="date" required="">
+							  </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
@@ -78,14 +78,14 @@
                                         <option>Select Days</option>
                                         <option>1</option>
                                         <option>2</option>
-                                        <option>4</option>
-                                        <option>7</option>
+                                        <option>3</option>
+                                        <!-- <option>7</option>
                                         <option>15</option>
-                                        <option>30</option>
+                                        <option>30</option> -->
 
                                     </select>
                                 </div>
-                                <div class="col-md-12">
+                                <!-- <div class="col-md-12">
 								<label for="contactusername">Hours</label>
                                         <select class="form-control" name="hour" required="">
                                         <option>Select Hours</option>
@@ -94,11 +94,11 @@
                                         <option>4-6</option>
                                         <option>6-8</option>
                                         </select>
-							</div>
+							</div> -->
                             </div>
 
 
-							<center><button type="submit" class="btn btn-info" style="margin-top:5%;width:90%">Book Now</button></center>
+							<center><button type="submit" class="btn btn-info" style="margin-top:5%;width:70%">Book Now</button></center>
 						</form>
 							</div>
 					<!--  //contact form grid ends here -->
@@ -112,5 +112,26 @@
 	</section>
 	</section>
 	<!-- //contact -->
+
+	<script>
+		// get the current date
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth() + 1; // January is 0
+		var yyyy = today.getFullYear();
+	  
+		if (dd < 10) {
+		  dd = '0' + dd;
+		}
+	  
+		if (mm < 10) {
+		  mm = '0' + mm;
+		}
+	  
+		var currentDate = yyyy + '-' + mm + '-' + dd;
+	  
+		// set the minimum date to the current date
+		document.getElementById('date').setAttribute('min', currentDate);
+	  </script>
 
 {% endblock %}

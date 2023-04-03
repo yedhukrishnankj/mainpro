@@ -4,17 +4,19 @@
 
      <div class="signup-main" style="width:100%;margin-top:0">
     	 <div class="signup-head">
-				<h1>Add Service</h1>
+				<h1>Add Travel Service</h1>
 			</div>
-			<div class="signup-block">
+			<div class="signup-block" style="display: flex; flex-direction: column; align-items: center;">
 				<form action="" method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-					<input type="text" name="cat" placeholder="Service Name" required="">
-					<input type="file" name="image" required="" style="width:100%;padding:8px;margin-top:2%;border:1px solid lightgrey ">
-                    <textarea placeholder="Write your description" name="desc" required="" style="width:100%;padding:8px;margin-top:2%;border:1px solid lightgrey"></textarea>
-					<input type="submit" value="Add Service" style="margin-top:10%">
+				  {% csrf_token %}
+				  <input type="text" name="cat" placeholder="Service Name" required="" style="width: 75%; padding: 15px; margin-top: 2%; border: 1px solid lightgrey">
+				  <input type="file" name="image" required="" style="width: 75%; padding: 15px; margin-top: 2%; border: 1px solid lightgrey">
+				  <textarea placeholder="Write your description" name="desc" required="" style="width: 75%; padding: 15px; margin-top: 2%; border: 1px solid lightgrey"></textarea>
+				  <input type="submit" value="Add Service" style="margin-top: 5%; padding: 12px; width: 30%; align-self: center;">
 				</form>
-			</div>
+			  </div>
+			  
+			  
     </div>
 
 {% if error %}
@@ -23,4 +25,37 @@
     window.location = "{% url 'view_service' %}";
 </script>
 {% endif %}
+
+<script>
+	// Get the form and the inputs
+	const form = document.querySelector('form');
+	const serviceNameInput = form.querySelector('input[name="cat"]');
+	const imageInput = form.querySelector('input[name="image"]');
+	const descriptionInput = form.querySelector('textarea[name="desc"]');
+  
+	// Add event listeners for form submission
+	form.addEventListener('submit', function(event) {
+	  // Check if service name starts with a capital letter
+	  const serviceName = serviceNameInput.value;
+	  if (!/^[A-Z]/.test(serviceName)) {
+		alert('Service name should start with a capital letter.');
+		event.preventDefault();
+	  }
+  
+	  // Check if image is a jpg or png file
+	  const imageFileName = imageInput.value.toLowerCase();
+	  if (!/\.(jpg|png)$/.test(imageFileName)) {
+		alert('Please upload a jpg or png file.');
+		event.preventDefault();
+	  }
+  
+	  // Check if description has only text
+	  const description = descriptionInput.value;
+	  if (!/^[a-zA-Z\s]+$/.test(description)) {
+		alert('Description should have only text.');
+		event.preventDefault();
+	  }
+	});
+  </script>
+  
     {% endblock %}

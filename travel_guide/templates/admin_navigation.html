@@ -150,8 +150,8 @@ h2, h4{
             <!--header start here-->
 				<div class="header-main">
 					<div class="header-left">
-							<div class="logo-name" style="width:100%">
-								<h1><span>Travel Service(Admin)</span></h1>
+							<div class="logo-name" style="width:50%">
+								<h1><span>Admin</span></h1>
 							</div>
 							<!--search-box-->
 
@@ -181,7 +181,7 @@ h2, h4{
 											 <li>
 											{% endfor %}
 												<div class="notification_bottom">
-													<a href="#">See all notifications</a>
+												 <a href="#">See all notifications</a>
 												</div> 
 											</li>
 										</ul>
@@ -290,6 +290,7 @@ h2, h4{
 		        	 <ul id="menu-academico-sub">
 			            <li id="menu-academico-avaliacoes" ><a href="{% url 'new_message' %}">Unread</a></li>
 			            <li id="menu-academico-boletim" ><a href="{% url 'read_message' %}">Read</a></li>
+						<li><a href="{% url 'sentiment_analysis' %}">Sentiment Analysis</a></li>
 		             </ul>
 		        </li>
 				 <li><a href="{% url 'search_report' %}"><i class="fa fa-search"></i><span>Search Between Date</span></a></li>
