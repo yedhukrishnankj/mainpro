@@ -1,0 +1,58 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block body %}
+<style>
+    #map-container {
+      height: 500px;
+    }
+    </style>
+    
+    <div id="map-container">
+      {{ map|safe }}
+    </div>
+  
+  
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/folium/0.12.1/leaflet.js"></script>
+
+  <script>
+ $(document).ready(function () {
+  var map = L.map('map').setView([10.537, 76.272], 12);
+
+  // Add a tile layer
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
+    maxZoom: 18,
+  }).addTo(map);
+
+  // Add markers for each service man
+  var guides = [
+    {% for service_man in service_men %}
+      {
+        name: "{{ service_man.service_name }}",
+        city: "{{ service_man.city.name }}",
+        latitude: {{ service_man.latitude }},
+        longitude: {{ service_man.longitude }},
+        image: "{{ service_man.image.url }}",
+      },
+    {% endfor %}
+  ];
+
+  guides.forEach(function (guide) {
+    var icon = L.icon({
+      iconUrl: guide.image,
+      iconSize: [50, 50], // adjust as necessary
+      popupAnchor: [0, -20], // adjust as necessary
+    });
+    var marker = L.marker([guide.latitude, guide.longitude], {icon: icon})
+      .bindPopup('<img src="' + guide.image + '" alt="' + guide.name + '" style="width: 50px; height: 50px; border-radius: 50%;">' + guide.name + ' in ' + guide.city)
+      .addTo(map);
+  });
+});
+
+
+  </script>
+
+{% endblock %}

@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate,login,logout
 import datetime
 from django.db import IntegrityError
 from django.contrib import messages
+import folium
 
 # Create your views here.
 def notification():
@@ -769,3 +770,16 @@ def sentiment_analysis(request):
 
     context = {'positive_count': positive_count, 'negative_count': negative_count, 'neutral_count': neutral_count}
     return render(request, 'sentiment_analysis.html', context)
+
+def map_view(request):
+    # create a map centered on the first registered service man
+    first_service_man = Service_Man.objects.first()
+    map = folium.Map(location=[first_service_man.latitude, first_service_man.longitude], zoom_start=8)
+
+    # add a marker for each registered service man with their image
+    for service_man in Service_Man.objects.all():
+        tooltip = f"{service_man.service_name} in {service_man.city.city}"
+        popup_html = f"<div><img src='{service_man.image.url}' width='100px'><br>{service_man.service_name} in {service_man.city.city}</div>"
+        folium.Marker(location=[service_man.latitude, service_man.longitude], tooltip=tooltip, popup=popup_html).add_to(map)
+
+    return render(request, 'map.html', {'map': map._repr_html_()})

@@ -18,6 +18,7 @@ urlpatterns = [
     path('edit_admin_profile',Edit_Admin_Profile,name="edit_admin_profile"),
     path('contact',contact,name="contact"),
     path('about',about,name="about"),
+    path('map/', map_view, name='map_view'),
     path('login',Login_User,name="login"),
     path('admin_login',Login_admin,name="admin_login"),
     path('logout',Logout,name="logout"),
