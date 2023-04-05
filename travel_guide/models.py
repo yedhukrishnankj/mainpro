@@ -114,7 +114,6 @@ class Order(models.Model):
 class place(models.Model):
     name = models.CharField(max_length=250)
     img = models.ImageField(upload_to='pics')
-    desc = models.TextField()
 
     def __str__(self):
         return self.home_place
