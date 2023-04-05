@@ -112,7 +112,7 @@ class Order(models.Model):
 
 
 class place(models.Model):
-    name = models.CharField(max_length=250)
+    name = models.CharField(max_length=250,unique=True)
     img = models.ImageField(upload_to='pics')
 
     def __str__(self):
