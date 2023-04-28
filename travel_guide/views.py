@@ -6,6 +6,7 @@ import datetime
 from django.db import IntegrityError
 from django.contrib import messages
 import folium
+from django.core.exceptions import ValidationError
 
 # Create your views here.
 def notification():
@@ -216,18 +217,90 @@ def Customer_Order(request):
     return render(request,'customer_order.html',d)
 
 
+# def Customer_Booking(request,pid):
+#     if not request.user.is_authenticated:
+#         return redirect('login')
+#     user= User.objects.get(id=request.user.id)
+#     error=""
+#     try:
+#         sign = Customer.objects.get(user=user)
+#         error = "pat"
+#     except:
+#         sign = Service_Man.objects.get(user=user)
+#         pass
+#     terror=False
+#     ser1 = Service_Man.objects.get(id=pid)
+#     if request.method == "POST":
+#         n = request.POST['name']
+#         c = request.POST['contact']
+#         add = request.POST['add']
+#         dat = request.POST['date']
+#         da = request.POST['day']
+#         # ho = request.POST['hour']
+#         st = Status.objects.get(status="pending")
+#         Order.objects.create(status=st,service=ser1,customer=sign,book_date=dat,book_days=da)
+#         terror=True
+#     d = {'error':error,'ser':sign,'terror':terror}
+#     return render(request,'booking.html',d)
+
+
+
+# def Customer_Booking(request,pid):
+#     if not request.user.is_authenticated:
+#         return redirect('login')
+    # user = request.user
+    # error = ""
+    # try:
+    #     sign = Customer.objects.get(user=user)
+    #     error = "pat"
+    # except:
+    #     sign = Service_Man.objects.get(user=user)
+    #     pass
+    # terror = False
+    # ser1 = Service_Man.objects.get(id=pid)
+    # if request.method == "POST":
+    #     n = request.POST['name']
+    #     c = request.POST['contact']
+    #     add = request.POST['add']
+    #     dat = request.POST['date']
+    #     da = request.POST['day']
+    #     # ho = request.POST['hour']
+    #     st = Status.objects.get(status="pending")
+        
+        # Check if the service is already booked on the selected date
+    #     existing_orders = Order.objects.filter(service=ser1, book_date=dat)
+
+    #     if existing_orders.exists():
+    #         raise ValidationError("The selected date is not available")
+        
+    #     Order.objects.create(status=st, service=ser1, customer=sign, book_date=dat, book_days=da)
+    #     terror = True
+    # d = {'error': error, 'ser': sign, 'terror': terror}
+    # return render(request, 'booking.html', d)
+    # existing_orders = Order.objects.filter(service=ser1, book_date=dat)
+
+    # if existing_orders.exists():
+    #     message = "The selected date is not available. Please choose a different date."
+    # else:
+    #     Order.objects.create(status=st, service=ser1, customer=sign, book_date=dat, book_days=da)
+    #     terror = True
+    #     message = "Your booking has been confirmed!"
+
+    # d = {'error': error, 'ser': sign, 'terror': terror, 'message': message}
+    # return render(request, 'booking.html', d)
+
 def Customer_Booking(request,pid):
     if not request.user.is_authenticated:
         return redirect('login')
-    user= User.objects.get(id=request.user.id)
-    error=""
+    user = request.user
+    error = ""
     try:
         sign = Customer.objects.get(user=user)
         error = "pat"
     except:
         sign = Service_Man.objects.get(user=user)
         pass
-    terror=False
+    terror = False
     ser1 = Service_Man.objects.get(id=pid)
     if request.method == "POST":
         n = request.POST['name']
@@ -237,10 +310,18 @@ def Customer_Booking(request,pid):
         da = request.POST['day']
         # ho = request.POST['hour']
         st = Status.objects.get(status="pending")
-        Order.objects.create(status=st,service=ser1,customer=sign,book_date=dat,book_days=da)
-        terror=True
-    d = {'error':error,'ser':sign,'terror':terror}
-    return render(request,'booking.html',d)
+        
+        # Check if the service is already booked on the selected date
+        existing_orders = Order.objects.filter(service=ser1, book_date=dat)
+
+        if existing_orders.exists():
+            raise ValidationError("The selected date is not available")
+        
+        Order.objects.create(status=st, service=ser1, customer=sign, book_date=dat, book_days=da)
+        terror = True
+    d = {'error': error, 'ser': sign, 'terror': terror}
+    return render(request, 'booking.html', d) 
+
 
 def Booking_detail(request,pid):
     user= User.objects.get(id=request.user.id)
