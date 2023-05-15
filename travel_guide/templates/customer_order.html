@@ -47,7 +47,7 @@
                                       <!-- <th style="color:black">Hours</th> -->
                                       <th style="color:black">Status</th>
                                       <th style="color:black">View detail</th>
-                                      <!-- <th style="color:black">Action</th> -->
+                                      <th style="color:black">Feedback</th>
                                   </tr>
                               </thead>
                               <tbody>
@@ -63,7 +63,8 @@
                                   <td>{{i.status.status}}</td>
                                   <td><a href="{% url 'Booking_detail' i.id %}" ><i style="font-size:30px;color:green" class="fa fa-eye"></i></a></td>
                                   <!-- <td><a href="{% url 'delete_Booking' i.id %}" ><i style="font-size:30px;color:red" class="fa fa-times" onclick="return confirm('Are You Confirm?')"></i></a></td> -->
-                              </tr>
+                                  <td><a href="{% url 'feedback' i.id %}" ><i style="font-size:30px;color:rgb(43, 168, 241)" class="fa fa-comment"></i></a></td>
+                                </tr>
                               {% endfor %}
                           </tbody>
                       </table>

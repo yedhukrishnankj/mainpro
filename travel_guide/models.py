@@ -52,6 +52,14 @@ class Service_Man(models.Model):
 
     def __str__(self):
         return self.user.first_name
+    
+    def get_overall_rating(self):
+        ratings = Rating.objects.filter(service_man=self)
+        total_ratings = sum(r.rating for r in ratings)
+        if ratings:
+            return round(total_ratings / len(ratings), 1)
+        else:
+            return 0.0
 
 
 class Service_Category(models.Model):
@@ -112,9 +120,25 @@ class Order(models.Model):
 
 
 class place(models.Model):
-    name = models.CharField(max_length=250,unique=True)
+    name = models.CharField(max_length=250,unique=True,null=True)
     img = models.ImageField(upload_to='pics')
-    desc = models.TextField()
+    desc = models.TextField(null=True)
 
     def __str__(self):
         return self.home_place
+
+class Rating(models.Model):
+    service_man = models.ForeignKey(Service_Man, on_delete=models.CASCADE)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    rating = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.service_man.user.first_name + " - " + self.customer.user.first_name
+    
+class Feedback(models.Model):
+    service_man = models.ForeignKey(Service_Man, on_delete=models.CASCADE)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    feedback_text = models.TextField()
+
+    def __str__(self):
+        return self.service_man.user.first_name + " - " + self.customer.user.first_name

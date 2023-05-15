@@ -6,6 +6,32 @@
     color:black;
     font-weight:bold;
     }
+
+.rating {
+  display: inline-block;
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.rating i {
+  color: #FFD700;
+  cursor: pointer;
+}
+
+.rating i.fa-star-o:hover,
+.rating i.fa-star:hover {
+  color: #FFD700;
+}
+
+.rating i.fa-star-o {
+  font-size: 1.5rem;
+}
+
+.rating i.fa-star {
+  font-size: 1.5rem;
+}
+
+
 </style>
 
 	<div class="w3l_banner_info" style="height:10px">
@@ -35,27 +61,62 @@
                             <div class="container-fluid">
                                <h2 style="font-weight:bold;font-family : 'Monotype Corsiva' ; color : #E6120E ;margin-top:5%" align="center">{{ser.category}}</h2><hr>
                             </div>
-                   {% for i in order %}
-                            <div class="row" style="margin-bottom:1%;border-radius:8px;padding:12px;width:80%;border:1px solid lightgrey">
-                                <div class="col-md-4">
-                                    <img src="{{i.image.url}}" style="width:60%;border-radius:50%;height:180px">
+                            {% for i in order %}
+                            {% with overall_rating=i.get_overall_rating|floatformat %}
+                                <div class="row" style="margin-bottom:1%;border-radius:8px;padding:12px;width:80%;border:1px solid lightgrey">
+                                    <div class="col-md-4">
+                                        <img src="{{i.image.url}}" style="width:60%;border-radius:50%;height:180px">
+                                    </div>
+                                    <div class="col-md-4" align="left">
+                                        <h4 style="font-weight:bold">{{i.user.first_name}} {{i.user.last_name}}</h4>
+                                        <ul style="color:grey">
+                                            <li>Mobile No. :- {{i.contact}}</li>
+                                            <li>Address :- {{i.address}}</li>
+                                            <li>Work Experience:- {{i.experience}} year</li>
+                                            <li>Service Provided City :- {{i.city}}</li>
+                                            <li class="rating" data-rating="{{ overall_rating }}"></li>
+                                            <a href="{% url 'booking' i.id %}" ><button class="btn btn-success" style="margin-top:8%;width:60%">Book Now</button></a>
+                                        </ul>
+                                    </div>
+                                    <!-- <div class="col-md-4">
+                                         <img src="{{i.id_card.url}}" style="width:75%">
+                                        <h4>{{i.id_type}}</h4>
+                                    </div> -->
                                 </div>
-                                <div class="col-md-4" align="left">
-                                    <h4 style="font-weight:bold">{{i.user.first_name}} {{i.user.last_name}}</h4>
-                                    <ul style="color:grey">
-                                        <li>Mobile No. :- {{i.contact}}</li>
-                                        <li>Address :- {{i.address}}</li>
-                                        <li>Work Experience:- {{i.experience}} year</li>
-                                        <li>Service Provided City :- {{i.city}}</li>
-                                        <a href="{% url 'booking' i.id %}" ><button class="btn btn-success" style="margin-top:8%;width:60%">Book Now</button></a>
-                                    </ul>
-                                </div>
-                                <!-- <div class="col-md-4">
-                                     <img src="{{i.id_card.url}}" style="width:75%">
-                                    <h4>{{i.id_type}}</h4>
-                                </div> -->
-                            </div>
-                   {% endfor %}
+                            {% endwith %}
+                        {% endfor %}
+                        
+                        
+                          
                </div>
 </div>
+
+
+<script>
+    var ratingIcons = document.querySelectorAll('.rating');
+    
+    ratingIcons.forEach(function(icon) {
+      var rating = icon.dataset.rating || 0;
+      highlightRating(icon, rating);
+    });
+    
+    function highlightRating(icon, rating) {
+      for (var i = 0; i < 5; i++) {
+        var starIcon = document.createElement('i');
+        starIcon.classList.add('fa');
+        if (i < rating) {
+          starIcon.classList.add('fa-star');
+        } else {
+          starIcon.classList.add('fa-star-o');
+        }
+        icon.appendChild(starIcon);
+      }
+    }
+    </script>
+    
+    
+    
+    
+    
+    
     {% endblock %}

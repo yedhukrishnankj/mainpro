@@ -204,8 +204,8 @@ def Admin_Order(request):
     return render(request,'admin_order.html',d)
 
 def Customer_Order(request):
-    user= User.objects.get(id=request.user.id)
-    error=""
+    user = User.objects.get(id=request.user.id)
+    error = ""
     try:
         sign = Customer.objects.get(user=user)
         error = "pat"
@@ -213,8 +213,8 @@ def Customer_Order(request):
         sign = Service_Man.objects.get(user=user)
         pass
     order = Order.objects.filter(customer=sign)
-    d = {'error':error,'order':order}
-    return render(request,'customer_order.html',d)
+    d = {'error': error, 'order': order}
+    return render(request, 'customer_order.html', d)
 
 
 # def Customer_Booking(request,pid):
@@ -334,7 +334,7 @@ def Booking_detail(request,pid):
         pass
     order = Order.objects.get(id=pid)
     d = {'error':error,'order':order}
-    return render(request,'booking_detail.html',d)
+    return render(request,'booking_detail.html',d) 
 
 def All_Service(request):
     user = ""
@@ -864,3 +864,19 @@ def map_view(request):
         folium.Marker(location=[service_man.latitude, service_man.longitude], tooltip=tooltip, popup=popup_html).add_to(map)
 
     return render(request, 'map.html', {'map': map._repr_html_()})
+
+
+def feedback(request, pid):
+    order = Order.objects.get(id=pid)
+    if request.method == 'POST':
+        feedback_text = request.POST.get('feedback_text')
+        rating = request.POST.get('rating')
+        service_man = order.service
+        customer = order.customer
+        feedback = Feedback.objects.create(service_man=service_man, customer=customer, feedback_text=feedback_text)
+        rating = Rating.objects.create(service_man=service_man, customer=customer, rating=rating)
+        return redirect('Booking_detail', pid=pid)
+    else:
+        d = {'order': order}
+        return render(request, 'feedback.html', d)
+    

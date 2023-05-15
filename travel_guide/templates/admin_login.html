@@ -71,13 +71,13 @@
                             {% csrf_token %}
 							<div class="form-group">
 								<label for="contactusername">Username</label>
-								<input type="text" placeholder="Enter Your Username" class="form-control" id="contactusername" name="uname" required>
+								<input type="text" placeholder="Enter Your Username" class="form-control" id="usernameid" name="uname" required>
 							</div>
 							<div class="form-group">
 								<label for="contactemail">Password</label>
-								<input type="password" placeholder="Enter Your Password" class="form-control" id="contactemail" name="pwd" required>
+								<input type="password" placeholder="Enter Your Password" class="form-control" id="passwordid" name="pwd" required>
 							</div>
-							<button type="submit" class="btn btn-info btn-block">Submit</button>
+							<button type="submit" id="submit" class="btn btn-info btn-block">Submit</button>
 						</form>
                     </div>
 					<!--  //contact form grid ends here -->

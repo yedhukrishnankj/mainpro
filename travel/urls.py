@@ -52,6 +52,7 @@ urlpatterns = [
     path('delete_Booking(<int:pid>)',delete_Booking,name="delete_Booking"),
     path('accept_confirmation(<int:pid>)',accept_confirmation,name="accept_confirmation"),
     path('Booking_detail(<int:pid>)',Booking_detail,name="Booking_detail"),
+    path('feedback/<int:pid>/',feedback, name='feedback'),
     path('delete_admin_order(<int:pid>)',delete_admin_order,name="delete_admin_order"),
     path('order_status(<int:pid>)',Order_status,name="order_status"),
     path('order_detail(<int:pid>)',Order_detail,name="order_detail"),

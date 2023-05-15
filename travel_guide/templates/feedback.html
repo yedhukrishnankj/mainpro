@@ -1,0 +1,121 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block body %}
+	<title>Feedback Form</title>
+	<style>
+		form {
+			margin: 50px auto;
+			width: 50%;
+			border: 1px solid #ccc;
+			padding: 20px;
+			background-color: #f8f8f8;
+			border-radius: 5px;
+		}
+		label {
+			display: block;
+			margin-bottom: 10px;
+			font-size: 16px;
+			font-weight: bold;
+		}
+		input[type=text], textarea {
+			width: 100%;
+			padding: 10px;
+			border-radius: 5px;
+			border: 1px solid #ccc;
+			font-size: 16px;
+			margin-bottom: 20px;
+			box-sizing: border-box;
+		}
+		input[type=submit] {
+			background-color: #4CAF50;
+			color: white;
+			font-size: 16px;
+			border: none;
+			border-radius: 5px;
+			padding: 10px 20px;
+			cursor: pointer;
+		}
+		input[type=submit]:hover {
+			background-color: #45a049;
+		}
+
+        .rating {
+  display: inline-block;
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.rating i {
+  color: #FFD700;
+  cursor: pointer;
+}
+
+.rating i.fa-star-o:hover,
+.rating i.fa-star:hover {
+  color: #FFD700;
+}
+
+.rating i.fa-star-o {
+  font-size: 1.5rem;
+}
+
+.rating i.fa-star {
+  font-size: 1.5rem;
+}
+	</style>
+
+<form method="POST" action="{% url 'feedback' pid=order.id %}">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="feedback_text">Feedback</label>
+      <textarea class="form-control" id="feedback_text" name="feedback_text" rows="3" required></textarea>
+    </div>
+    <div class="form-group">
+        <label for="rating">Rating</label>
+        <div class="rating">
+          <i class="fa fa-star-o" data-rating="1"></i>
+          <i class="fa fa-star-o" data-rating="2"></i>
+          <i class="fa fa-star-o" data-rating="3"></i>
+          <i class="fa fa-star-o" data-rating="4"></i>
+          <i class="fa fa-star-o" data-rating="5"></i>
+          <input type="hidden" name="rating" id="rating" required>
+        </div>
+      </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+  <script>
+    var rating = 0;
+var ratingIcons = document.querySelectorAll('.rating i');
+
+ratingIcons.forEach(function(icon) {
+  icon.addEventListener('click', function() {
+    rating = this.dataset.rating;
+    updateRating();
+  });
+  icon.addEventListener('mouseover', function() {
+    highlightRating(this.dataset.rating);
+  });
+  icon.addEventListener('mouseout', function() {
+    updateRating();
+  });
+});
+
+function highlightRating(rating) {
+  for (var i = 0; i < ratingIcons.length; i++) {
+    if (i < rating) {
+      ratingIcons[i].classList.add('fa-star');
+      ratingIcons[i].classList.remove('fa-star-o');
+    } else {
+      ratingIcons[i].classList.add('fa-star-o');
+      ratingIcons[i].classList.remove('fa-star');
+    }
+  }
+}
+
+function updateRating() {
+  highlightRating(rating);
+  document.getElementById('rating').value = rating;
+}
+
+  </script>
+{% endblock %}

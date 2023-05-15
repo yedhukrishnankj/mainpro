@@ -18,6 +18,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link href="//fonts.googleapis.com/css?family=Roboto:400,500,700,900" rel="stylesheet">
 <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <style>
     .nav-link:hover {
   background-color: rgb(0, 128, 255);
@@ -74,12 +76,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
       </li>
 
         <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" style="background-color:red" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"  style="background-color:red" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fa fa-user"></i> Hello,{{request.user.username}}
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
-          <a class="dropdown-item" href="{% url 'change_password' %}">Change Password</a>
+          <a class="dropdown-item" id="prof_page" href="{% url 'profile' %}">Profile</a>
+          <a class="dropdown-item" id="pass_page" href="{% url 'change_password' %}">Change Password</a>
 
           <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
         </div>
@@ -133,6 +135,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <a class="nav-link" href="{% url 'search_cities' %}">
            <i class="fa fa-search"></i> search service_man</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link " href="http://127.0.0.1:5000/index">
+            <i class="fa fa-phone"></i> Tourist place search</a>
+      </li>
+
 
 
         <li class="nav-item dropdown">
